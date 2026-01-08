@@ -1,31 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   philosophers.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/06 14:14:48 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/08 17:52:25 by ttiprez          ###   ########.fr       */
+/*   Created: 2026/01/08 13:18:55 by ttiprez           #+#    #+#             */
+/*   Updated: 2026/01/08 18:18:59 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <sys/time.h>
+#ifndef PHILOSOPHERS_H
+# define PHILOSOPHERS_H
 
-long	current_time_ms()
-{
-	struct timeval	current_tv;
+/*			utils.c			*/
+long	current_time_ms();
+int		ft_atoi(const char *src);
 
-	gettimeofday(&current_tv, NULL);
-	return (current_tv.tv_sec * 1000 + current_tv.tv_usec / 1000);
-}
-
-int main(void)
-{
-	printf("current_time_ms() = %ld\n", current_time_ms());
-	return (0);
-}
+#endif

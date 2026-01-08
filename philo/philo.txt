@@ -1,0 +1,59 @@
+Plusieurs philosophes autour d'une table.
+Un grand bol de spaghettie au milieu de la table.
+
+1 philo = 1 fourchette a leurs droites.
+
+Possibilitees philosophes :
+	- Manger
+	- Penser
+	- Dormir
+
+Cycle de vie d'un philosophe :
+	Manger -> Dormir -> Penser -> Manger -> ...
+
+Pour manger un philo prend 2 fourchette (droite et gauche)
+
+Tout les philosophes doivent pouvoir manger et ne doivent
+jamais mourrir de faim.
+
+Les philos ne communiques pas entre eux.
+Les philos ne savent pas si un autre philo est entrain de mourrir.
+
+A SAVOIR :
+
+- PAS DE VARIABLES GLOBALES
+
+- Arguments du programme :
+	- number_of_philo	: Nombre de philo
+	- time_to_die		: Temps avant de mourrir (Se reset en mangeant)
+	- time_to_eat		: Temps que prend un philo pour manger
+	- time_to_sleep		: Temps que prend un philo pour dormir
+	- number_of_times_each_philo_must_eat (optionel): Nombre de tour
+
+- Philo range commence a 1 jusqu'a number_of_philo
+
+- Philo entre (N-1 et N+1)
+
+LOGS :
+
+- Tout changement d'etat d'un philo doit etre formatte comme ceci :
+	- timestamp_in_ms X has taken a fork
+	(exemple : 6234262 5 has taken fork)
+	- timestamp_in_ms X is eating
+	- timestamp_in_ms X is sleeping
+	- timestamp_in_ms X is thinking
+	- timestamp_in_ms X died
+
+- Le messages ne doivent pas se superpose
+
+- Le message annoncent la mort d'un philo doit s'envoyer dans les
+  10 ms de sa mort
+
+MANDATORY PART :
+- Un philo = 1 thread
+- 1 philo = mort
+- Utiliser mutex pour empecher duplication de fork
+
+BONUS PART :
+
+- Toute les fourchettes sont au milieu de la table
