@@ -86,6 +86,25 @@ Suspend l'execution du thread appelant jusqu'a ce que th finisse son execution.
 En cas de succes : Le code de retour de *th* est stocke dans *thread_return* et **0** est renvoye.
 <br>En cas d'erreur : **Code d'erreur non nul**
 
+<h2 style="text-align:center;background: #101080">PTHREAD_DETACH</h2>
+
+<h3 style="padding: 0.5em 3em; background: #aaaaaaff; border: solid 2px #101080; color: #101080;">PROTOTYPE</h3>
+
+#include <pthread.h>
+
+int pthread_detach(pthread_t th)
+
+<h3 style="padding: 0.5em 3em; background: #aaaaaaff; border: solid 2px #101080; color: #101080;">DESCRIPTION</h3>
+
+Place *th* dans l'etat detache. 
+<br>free *th* a la fin de son execution.
+<br>Cependant cela empeche les autres threads de se synchroniser sur la mort de *th* en utilisant pthread_join.
+
+<h3 style="padding: 0.5em 3em; background: #aaaaaaff; border: solid 2px #101080; color: #101080;">VALEUR RENVOYEE</h3>
+
+En cas de succes : Le code de retour de *th* est stocke dans *thread_return* et **0** est renvoye.
+<br>En cas d'erreur : **Code d'erreur non nul**
+
 <h2 style="text-align:center;background: #be0000ff">MUTEX</h2>
 
 <h3 style="padding: 0.5em 3em; background: #aaaaaaff; border: solid 2px #be0000ff; color: #be0000ff;">DESCRIPTION</h3>
@@ -113,7 +132,8 @@ Initialisation *mutex* selon les attributs spécifié par *mutexattr*. Si *mutex
 
 <h3 style="padding: 0.5em 3em; background: #aaaaaaff; border: solid 2px #101080; color: #101080;">VALEUR RENVOYEE</h3>
 
-**Toujours 0**
+En cas de succes : **0**
+<br>En cas d'erreur : **Code d'erreur non nul**
 
 <h2 style="text-align:center;background: #101080">PTHREAD_MUTEX_DESTROY</h2>
 
@@ -126,7 +146,6 @@ int pthread_mutex_destroy(pthread_mutex_t *mutex)
 <h3 style="padding: 0.5em 3em; background: #aaaaaaff; border: solid 2px #101080; color: #101080;">DESCRIPTION</h3>
 
 Detruit *mutex*, liberant les ressources qu'il detient. **Le mutex doit etre deverouille**
-<br>**INUTILE** si ce n'est de verifier que le mutex n'est pas verrouille car dans l'implementation de LinuxThreads des threads POSIX, aucune ressource ne peut etre associe a un mutex.
 
 <h3 style="padding: 0.5em 3em; background: #aaaaaaff; border: solid 2px #101080; color: #101080;">VALEUR RENVOYEE</h3>
 
