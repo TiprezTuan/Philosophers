@@ -6,21 +6,21 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 12:52:34 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 17:12:43 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:58:01 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-#include <pthread.h>
+# include <pthread.h>
 
-typedef struct	s_fork
+typedef struct s_fork
 {
 	pthread_mutex_t		mutex;
 }	t_fork;
 
-typedef struct	s_p_settings 
+typedef struct s_p_settings
 {
 	int				num_of_philo;
 	int				time_to_die;
@@ -33,7 +33,7 @@ typedef struct	s_p_settings
 	int				philo_died;
 }	t_p_settings;
 
-typedef struct	s_philo
+typedef struct s_philo
 {
 	int				num_philo;
 	pthread_t		thread;

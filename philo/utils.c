@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 18:37:20 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 17:20:24 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:58:33 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_status(t_philo *p, long timestamp, const char *status)
 	pthread_mutex_unlock(&p->settings->print_mutex);
 }
 
-long	current_time_ms()
+long	current_time_ms(void)
 {
 	struct timeval	current_tv;
 

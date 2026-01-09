@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 17:20:10 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:58:53 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	*routine_philo(void *arg)
 		if (p->settings->philo_died)
 		{
 			pthread_mutex_unlock(&p->settings->philo_died_mutex);
-			break;
+			break ;
 		}
 		pthread_mutex_unlock(&p->settings->philo_died_mutex);
 		thinking(p);

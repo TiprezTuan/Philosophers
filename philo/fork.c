@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:02:03 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 17:19:15 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:58:21 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	take_fork(t_philo *p)
 		pthread_mutex_lock(&p->right_fork->mutex);
 		print_status(p, current_time_ms(), "has taken a fork");
 	}
-
 	pthread_mutex_lock(&p->meal_mutex);
 	p->last_meal = current_time_ms();
 	pthread_mutex_unlock(&p->meal_mutex);
