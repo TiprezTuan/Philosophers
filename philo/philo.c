@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 16:08:57 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:20:10 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ t_p_settings	init_p_settings(int ac, char const **av)
 	p_settings.philo_died = 0;
 	if (pthread_mutex_init(&p_settings.philo_died_mutex, NULL) != 0)
 		exit(EXIT_FAILURE);
+	if (pthread_mutex_init(&p_settings.print_mutex, NULL) != 0)
+	{
+		exit(EXIT_FAILURE);
+		pthread_mutex_destroy(&p_settings.philo_died_mutex);
+	}
 	p_settings.nb_eat_by_philo = -1;
 	p_settings.nb_philo_eaten_all = 0;
 	if (ac == 6)

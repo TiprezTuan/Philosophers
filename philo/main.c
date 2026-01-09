@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:00:24 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 15:51:21 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:11:20 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ int	main(int ac, char const **av)
 	p_settings = init_p_settings(ac, av);
 	if (!init_forks(&forks, &p_settings)
 		|| !init_philo(&philo, forks, &p_settings))
-		return (free_all(NULL, forks, p_settings.num_of_philo), EXIT_FAILURE);
+		return (free_all(NULL, forks, &p_settings),
+			EXIT_FAILURE);
 	if (!start_all_philo_routine(philo))
-		return (free_all(philo, forks, p_settings.num_of_philo), EXIT_FAILURE);
+		return (free_all(philo, forks, &p_settings),
+			EXIT_FAILURE);
 	hypervisor(philo, &p_settings);
 	join_all(philo, &p_settings);
-	return (free_all(philo, forks, p_settings.num_of_philo), EXIT_SUCCESS);
+	return (free_all(philo, forks, &p_settings), EXIT_SUCCESS);
 }

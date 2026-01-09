@@ -6,22 +6,24 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:18:55 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 15:51:40 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:17:37 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
+# include <stdbool.h>
 # include "struct.h"
 
 /*				utils.c					*/
+void			print_status(t_philo *p, long timestamp, const char *status);
 long			current_time_ms();
 int				ft_atoi(const char *src);
 
 /*			error_management.c			*/
 void			destroy_i_mutex(t_philo **p, int i_p, t_fork **f, int i_f);
-void			free_all(t_philo *p, t_fork *f, int nb_philo);
+void			free_all(t_philo *p, t_fork *f, t_p_settings *p_settings);
 
 /*				  fork.c				*/
 bool			init_forks(t_fork **f, t_p_settings *p_settings);

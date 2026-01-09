@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:04:08 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 12:35:35 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:10:10 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@ void	destroy_i_mutex(t_philo **p, int i_p, t_fork **f, int i_f)
 	}
 }
 
-void	free_all(t_philo *p, t_fork *f, int nb_philo)
+void	free_all(t_philo *p, t_fork *f, t_p_settings *p_settings)
 {
 	int	i;
 
 	if (f)
 	{
 		i = -1;
-		while (++i < nb_philo)
+		while (++i < p_settings->num_of_philo)
 			pthread_mutex_destroy(&f[i].mutex);
 		free(f);
 	}
 	if (p)
 	{
 		i = -1;
-		while (++i < nb_philo)
+		while (++i < p_settings->num_of_philo)
 			pthread_mutex_destroy(&p[i].meal_mutex);
 		free(p);
 	}
+	pthread_mutex_destroy(&p_settings->philo_died_mutex);
+	pthread_mutex_destroy(&p_settings->print_mutex);
 }

@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 14:07:38 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 16:28:29 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:18:41 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	hypervisor(t_philo *p, t_p_settings *p_settings)
 			pthread_mutex_lock(&p[i].meal_mutex);
 			if (timestamp - p[i].last_meal >= p_settings->time_to_die)
 			{
-				printf("%ld %d died\n", timestamp, p[i].num_philo);
+				print_status(&p[i], timestamp, "died");
 				pthread_mutex_lock(&p_settings->philo_died_mutex);
 				p_settings->philo_died = p[i].num_philo;
 				pthread_mutex_unlock(&p_settings->philo_died_mutex);

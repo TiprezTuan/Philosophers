@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 12:52:34 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 16:08:42 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 17:12:43 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define STRUCT_H
 
 #include <pthread.h>
-#include <stdbool.h>
 
 typedef struct	s_fork
 {
@@ -30,6 +29,7 @@ typedef struct	s_p_settings
 	int				nb_eat_by_philo;
 	int				nb_philo_eaten_all;
 	pthread_mutex_t	philo_died_mutex;
+	pthread_mutex_t	print_mutex;
 	int				philo_died;
 }	t_p_settings;
 
