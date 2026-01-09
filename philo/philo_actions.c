@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 13:21:25 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 16:14:49 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 16:27:22 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	eating(t_philo *p)
 		p->settings->nb_philo_eaten_all++;
 	pthread_mutex_unlock(&p->meal_mutex);
 	printf("%ld %d is eating\n", timestamp, p->num_philo);
-	usleep(p->settings->time_to_eat);
+	usleep(p->settings->time_to_eat * 1000);
 	drop_fork(p);
 }
 
@@ -43,5 +43,5 @@ void	sleeping(t_philo *p)
 {
 	printf("%ld %d is sleeping\n", current_time_ms(),
 		p->num_philo);
-	usleep(p->settings->time_to_sleep);
+	usleep(p->settings->time_to_sleep * 1000);
 }

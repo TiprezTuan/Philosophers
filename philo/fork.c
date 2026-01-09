@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:02:03 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 16:14:40 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/09 16:19:43 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ bool	init_forks(t_fork **f, t_p_settings *p_settings)
 
 void	take_fork(t_philo *p)
 {
-	if (p->num_philo / 2 == 0)
+	if (p->num_philo % 2 == 0)
 	{
 		pthread_mutex_lock(&p->right_fork->mutex);
 		printf("%ld %d has taken a fork\n", current_time_ms(), p->num_philo);
