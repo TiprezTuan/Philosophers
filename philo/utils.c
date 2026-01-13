@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 18:37:20 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 17:58:33 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 07:30:01 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <unistd.h>
 #include <sys/time.h>
 #include <pthread.h>
+#include <stdarg.h>
 
 #include "struct.h"
 
@@ -25,6 +26,23 @@ static char	*ft_skip_whitespace(const char *src)
 	while (src[i] == ' ' || (src[i] >= 9 && src[i] <= 13))
 		i++;
 	return ((char *)&src[i]);
+}
+
+void	destroy_and_exit(int exit_code, int nb_mutex, ...)
+{
+	va_list			all_mutex;
+	pthread_mutex_t	current_mutex;
+	int				i;
+
+	va_start(all_mutex, nb_mutex);
+	i = -1;
+	while (++i < nb_mutex)
+	{
+		current_mutex = va_arg(all_mutex, pthread_mutex_t);
+		pthread_mutex_destroy(&current_mutex);
+	}
+	va_end(all_mutex);
+	exit(exit_code);
 }
 
 void	print_status(t_philo *p, long timestamp, const char *status)

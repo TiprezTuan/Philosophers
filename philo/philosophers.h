@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:18:55 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 17:58:41 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 07:30:17 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "struct.h"
 
 /*				utils.c					*/
+void			destroy_and_exit(int exit_code, int nb_mutex, ...);
 void			print_status(t_philo *p, long timestamp, const char *status);
 long			current_time_ms(void);
 int				ft_atoi(const char *src);

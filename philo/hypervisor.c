@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 14:07:38 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 18:00:19 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 07:23:16 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,11 @@ void	hypervisor(t_philo *p, t_p_settings *p_settings)
 		while (++i < p_settings->num_of_philo)
 		{
 			timestamp = current_time_ms();
-			if (p_settings->nb_philo_eaten_all == p_settings->nb_eat_by_philo)
-				return (printf("All philo eat the required number of meals.\n"));
+			if (p_settings->nb_philo_eaten_all == p_settings->num_of_philo)
+			{
+				printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHDWUDAWHDAWHDWAUHAll philo eat the required number of meals.\n");
+				return ;
+			}
 			pthread_mutex_lock(&p[i].meal_mutex);
 			if (timestamp - p[i].last_meal >= p_settings->time_to_die)
 			{

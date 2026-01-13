@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:00:24 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 17:11:20 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 07:21:25 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 #include "struct.h"
 
 int	main(int ac, char const **av)
-{	
+{
 	t_p_settings		p_settings;
 	t_philo				*philo;
 	t_fork				*forks;
@@ -28,7 +28,7 @@ int	main(int ac, char const **av)
 	if (ac < 5)
 		return (printf("Error\n4 arguments minimum.\n"), EXIT_FAILURE);
 	if (ac > 6)
-		return (printf("Error\n5 arguments maximum.\n", EXIT_FAILURE));
+		return (printf("Error\n5 arguments maximum.\n"), EXIT_FAILURE);
 	p_settings = init_p_settings(ac, av);
 	if (!init_forks(&forks, &p_settings)
 		|| !init_philo(&philo, forks, &p_settings))
