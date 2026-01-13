@@ -1,0 +1,5 @@
+- S'arreter si tout les philo on assez mangee
+- Creer mutex pour nb_philo_eaten_all
+- Creer variable boolean si ils ont assez mange
+- Creer mutex sur cette variable
+- Bien synchro les threads entre eux.

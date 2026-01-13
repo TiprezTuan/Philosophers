@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/13 07:17:51 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 07:50:15 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,20 @@
 #include "struct.h"
 #include "philosophers.h"
 
+static void init_mutex(t_p_settings *p_settings)
+{
+	if (pthread_mutex_init(&p_settings->nb_philo_eaten_all_mutex, NULL) != 0)
+		exit(EXIT_FAILURE);
+	if (pthread_mutex_init(&p_settings->philo_died_mutex, NULL) != 0)
+		destroy_and_exit(EXIT_FAILURE, 1, p_settings->nb_philo_eaten_all_mutex);
+	if (pthread_mutex_init(&p_settings->philo_eat_all_mutex, NULL) != 0)
+		destroy_and_exit(EXIT_FAILURE, 2, p_settings->nb_philo_eaten_all_mutex,
+			p_settings->philo_died_mutex);
+	if (pthread_mutex_init(&p_settings->print_mutex, NULL) != 0)
+		destroy_and_exit(EXIT_FAILURE, 3, p_settings->nb_philo_eaten_all_mutex,
+			p_settings->philo_died_mutex, p_settings->philo_eat_all_mutex);
+}
+
 t_p_settings	init_p_settings(int ac, char const **av)
 {
 	t_p_settings	p_settings;
@@ -24,16 +38,11 @@ t_p_settings	init_p_settings(int ac, char const **av)
 	p_settings.time_to_die = ft_atoi(av[2]);
 	p_settings.time_to_eat = ft_atoi(av[3]);
 	p_settings.time_to_sleep = ft_atoi(av[4]);
-	p_settings.philo_died = 0;
-	if (pthread_mutex_init(&p_settings.philo_died_mutex, NULL) != 0)
-		exit(EXIT_FAILURE);
-	if (pthread_mutex_init(&p_settings.print_mutex, NULL) != 0)
-	{
-		exit(EXIT_FAILURE);
-		pthread_mutex_destroy(&p_settings.philo_died_mutex);
-	}
 	p_settings.nb_eat_by_philo = -1;
 	p_settings.nb_philo_eaten_all = 0;
+	p_settings.philo_died = 0;
+	p_settings.philo_eat_all = false;
+	init_mutex(&p_settings);
 	if (ac == 6)
 		p_settings.nb_eat_by_philo = ft_atoi(av[5]);
 	return (p_settings);
