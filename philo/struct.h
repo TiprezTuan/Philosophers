@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 12:52:34 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/13 07:46:50 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 09:13:49 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_fork
 
 typedef struct s_p_settings
 {
+	long			start_timestamp;
 	int				num_of_philo;
 	int				time_to_die;
 	int				time_to_eat;

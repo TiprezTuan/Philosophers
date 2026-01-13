@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/13 08:06:05 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 09:15:28 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_p_settings	init_p_settings(int ac, char const **av)
 {
 	t_p_settings	p_settings;
 
+	p_settings.start_timestamp = current_time_ms();
 	p_settings.num_of_philo = ft_atoi(av[1]);
 	p_settings.time_to_die = ft_atoi(av[2]);
 	p_settings.time_to_eat = ft_atoi(av[3]);
