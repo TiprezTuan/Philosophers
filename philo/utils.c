@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 18:37:20 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/13 07:47:09 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 08:13:03 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ void	print_status(t_philo *p, long timestamp, const char *status)
 {
 	pthread_mutex_lock(&p->settings->print_mutex);
 	pthread_mutex_lock(&p->settings->philo_died_mutex);
-	if (!p->settings->philo_died)
+	pthread_mutex_lock(&p->settings->philo_eat_all_mutex);
+	if (!p->settings->philo_died && !p->settings->philo_eat_all)
 		printf("%ld %d %s\n", timestamp, p->num_philo, status);
+	pthread_mutex_unlock(&p->settings->philo_eat_all_mutex);
 	pthread_mutex_unlock(&p->settings->philo_died_mutex);
 	pthread_mutex_unlock(&p->settings->print_mutex);
+
 }
 
 long	current_time_ms(void)

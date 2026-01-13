@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/13 07:50:15 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 08:06:05 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,13 @@ void	*routine_philo(void *arg)
 			break ;
 		}
 		pthread_mutex_unlock(&p->settings->philo_died_mutex);
+		pthread_mutex_lock(&p->settings->philo_eat_all_mutex);
+		if (p->settings->philo_eat_all)
+		{
+			pthread_mutex_unlock(&p->settings->philo_eat_all_mutex);
+			break;
+		}
+		pthread_mutex_unlock(&p->settings->philo_eat_all_mutex);
 		thinking(p);
 		eating(p);
 		sleeping(p);

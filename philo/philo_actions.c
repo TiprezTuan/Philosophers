@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 13:21:25 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 17:20:03 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/13 07:56:16 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ void	eating(t_philo *p)
 	pthread_mutex_lock(&p->meal_mutex);
 	p->last_meal = timestamp;
 	if (++p->nb_eaten == p->settings->nb_eat_by_philo)
+	{
+		pthread_mutex_lock(&p->settings->nb_philo_eaten_all_mutex);
 		p->settings->nb_philo_eaten_all++;
+		pthread_mutex_unlock(&p->settings->nb_philo_eaten_all_mutex);
+	}
 	pthread_mutex_unlock(&p->meal_mutex);
 	print_status(p, timestamp, "is eating");
 	usleep(p->settings->time_to_eat * 1000);
