@@ -6,7 +6,7 @@
 #    By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/20 17:58:06 by ttiprez           #+#    #+#              #
-#    Updated: 2026/01/19 13:10:37 by ttiprez          ###   ########.fr        #
+#    Updated: 2026/01/20 12:01:05 by ttiprez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -g -I$(HEADERS_DIR)
 
 # Nom de l'executable
-NAME		= philosophers
+NAME		= philo
 
 # Dossiers
 SRC_DIR		= src
