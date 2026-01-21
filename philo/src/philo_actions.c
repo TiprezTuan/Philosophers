@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 13:21:25 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/13 07:56:16 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/21 16:59:51 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,34 @@
 
 void	thinking(t_philo *p)
 {
-	print_status(p, current_time_ms(), "is thinking");
+	if (!p->settings->philo_died && !p->settings->philo_eat_all)
+		print_status(p, current_time_ms(), "is thinking");
 }
 
 void	eating(t_philo *p)
 {
 	long	timestamp;
+	bool	finished_eating;
 
 	take_fork(p);
 	timestamp = current_time_ms();
 	pthread_mutex_lock(&p->meal_mutex);
 	p->last_meal = timestamp;
-	if (++p->nb_eaten == p->settings->nb_eat_by_philo)
+	p->nb_eaten++;
+	pthread_mutex_unlock(&p->meal_mutex);
+	print_status(p, timestamp, "is eating");
+	if (finished_eating)
 	{
 		pthread_mutex_lock(&p->settings->nb_philo_eaten_all_mutex);
 		p->settings->nb_philo_eaten_all++;
 		pthread_mutex_unlock(&p->settings->nb_philo_eaten_all_mutex);
 	}
-	pthread_mutex_unlock(&p->meal_mutex);
-	print_status(p, timestamp, "is eating");
-	usleep(p->settings->time_to_eat * 1000);
+	smart_sleep(p->settings->time_to_eat, p->settings);
 	drop_fork(p);
 }
 
 void	sleeping(t_philo *p)
 {
 	print_status(p, current_time_ms(), "is sleeping");
-	usleep(p->settings->time_to_sleep * 1000);
+	smart_sleep(p->settings->time_to_sleep, p->settings);
 }

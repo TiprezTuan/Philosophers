@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:18:55 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/13 07:30:17 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/21 17:00:05 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,9 @@ bool			init_philo(t_philo **p, t_fork *f, t_p_settings *p_settings);
 bool			start_all_philo_routine(t_philo *p);
 
 /*				hypervisor.c			*/
-void			join_all(t_philo *p, t_p_settings *p_settings);
 void			hypervisor(t_philo *p, t_p_settings *p_settings);
+void			join_all(t_philo *p, t_p_settings *p_settings);
+void			smart_sleep(long sleep_time, t_p_settings *p_settings);
 
 /*				philo_action.c			*/
 void			thinking(t_philo *p);
