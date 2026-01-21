@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/21 17:06:37 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/21 17:12:21 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,8 +82,6 @@ void	*routine_philo(void *arg)
 	t_philo	*p;
 
 	p = (t_philo *)arg;
-	if (p->num_philo % 2 == 1)
-		usleep(500);
 	while (1)
 	{
 		pthread_mutex_lock(&p->settings->philo_died_mutex);
