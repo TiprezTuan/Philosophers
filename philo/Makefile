@@ -6,7 +6,7 @@
 #    By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/20 17:58:06 by ttiprez           #+#    #+#              #
-#    Updated: 2026/01/21 16:57:48 by ttiprez          ###   ########.fr        #
+#    Updated: 2026/01/21 17:05:08 by ttiprez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,14 +32,16 @@ SRCS		= $(SRC_DIR)/error_management.c		\
 			  $(SRC_DIR)/philo.c				   \
 			  $(SRC_DIR)/utils.c				    \
 			  $(SRC_DIR)/main.c					     \
-			  $(SRC_DIR)/fork.c					      \
+			  $(SRC_DIR)/fork.c
+
+# Ficher objets
 OBJS		= $(OBJ_DIR)/fork.o					      \
 			  $(OBJ_DIR)/main.o					     \
 			  $(OBJ_DIR)/utils.o				    \
 			  $(OBJ_DIR)/philo.o				   \
 			  $(OBJ_DIR)/hypervisor.o			  \
 			  $(OBJ_DIR)/philo_actions.o		 \
-			  $(OBJ_DIR)/error_management.o		\
+			  $(OBJ_DIR)/error_management.o
 
 # Couleur
 RED			= \033[0;31m
