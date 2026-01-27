@@ -6,12 +6,13 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:04:08 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/09 17:10:10 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/27 13:48:38 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <pthread.h>
+#include <stdarg.h>
 
 #include "struct.h"
 
@@ -49,6 +50,25 @@ void	free_all(t_philo *p, t_fork *f, t_p_settings *p_settings)
 			pthread_mutex_destroy(&p[i].meal_mutex);
 		free(p);
 	}
+	pthread_mutex_destroy(&p_settings->nb_philo_eaten_all_mutex);
 	pthread_mutex_destroy(&p_settings->philo_died_mutex);
+	pthread_mutex_destroy(&p_settings->philo_eat_all_mutex);
 	pthread_mutex_destroy(&p_settings->print_mutex);
+}
+
+void	destroy_and_exit(int exit_code, int nb_mutex, ...)
+{
+	pthread_mutex_t	*current_mutex;
+	va_list			all_mutex;
+	int				i;
+
+	va_start(all_mutex, nb_mutex);
+	i = -1;
+	while (++i < nb_mutex)
+	{
+		current_mutex = va_arg(all_mutex, pthread_mutex_t *);
+		pthread_mutex_destroy(current_mutex);
+	}
+	va_end(all_mutex);
+	exit(exit_code);
 }

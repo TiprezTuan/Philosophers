@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 13:21:25 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/21 17:06:58 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/27 15:36:31 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 
 void	thinking(t_philo *p)
 {
-	if (!p->settings->philo_died && !p->settings->philo_eat_all)
-		print_status(p, current_time_ms(), "is thinking");
+	print_status(p, current_time_ms(), "is thinking");
+	smart_sleep(p->settings->time_to_eat * 2 - p->settings->time_to_sleep * 0.5,
+				p->settings);
 }
 
 void	eating(t_philo *p)

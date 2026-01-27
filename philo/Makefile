@@ -6,7 +6,7 @@
 #    By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/20 17:58:06 by ttiprez           #+#    #+#              #
-#    Updated: 2026/01/23 14:40:24 by ttiprez          ###   ########.fr        #
+#    Updated: 2026/01/27 13:19:43 by ttiprez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ MAKEFLAGS += -s
 
 # Compilateur et flags
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g -I$(HEADERS_DIR)
+CFLAGS		= -Wall -Wextra -Werror -g -O0 -I$(HEADERS_DIR)
 
 # Nom de l'executable
 NAME		= philo

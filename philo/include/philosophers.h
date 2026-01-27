@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:18:55 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/21 17:00:05 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/27 13:49:10 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,15 @@
 # include "struct.h"
 
 /*				utils.c					*/
-void			destroy_and_exit(int exit_code, int nb_mutex, ...);
-void			print_status(t_philo *p, long timestamp, const char *status);
-long			current_time_ms(void);
 int				ft_atoi(const char *src);
+long			current_time_ms(void);
+void			print_status(t_philo *p, long timestamp, const char *status);
+bool			is_simulation_over(t_p_settings *p_settings);
 
 /*			error_management.c			*/
 void			destroy_i_mutex(t_philo **p, int i_p, t_fork **f, int i_f);
 void			free_all(t_philo *p, t_fork *f, t_p_settings *p_settings);
+void			destroy_and_exit(int exit_code, int nb_mutex, ...);
 
 /*				  fork.c				*/
 bool			init_forks(t_fork **f, t_p_settings *p_settings);

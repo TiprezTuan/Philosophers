@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/06 17:00:24 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/21 16:26:19 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/27 15:47:25 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,12 @@ static bool	are_valid_args(int ac, const char **av)
 	if (ac == 6 && ft_atoi(av[5]) <= 0)
 		return (printf("Error\nOnly strictly positive values are allowed.\n"),
 			false);
+	if (ft_atoi(av[1]) == 1)
+	{
+		usleep(ft_atoi(av[2]) * 1000);
+		printf("%d 1 died\n", ft_atoi(av[2]));
+		return (false);
+	}
 	return (true);
 }
 

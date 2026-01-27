@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 14:07:38 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/21 16:47:52 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/27 13:57:03 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ static void	check_total_meal(t_philo *p, t_p_settings *p_settings, long tt)
 	if (p_settings->nb_philo_eaten_all == p_settings->num_of_philo)
 	{
 		print_status(p, tt, "eaten his last meal");
+		pthread_mutex_lock(&p_settings->philo_eat_all_mutex);
 		p_settings->philo_eat_all = true;
+		pthread_mutex_unlock(&p_settings->philo_eat_all_mutex);
 	}
 	pthread_mutex_unlock(&p->settings->nb_philo_eaten_all_mutex);
 }
@@ -45,15 +47,15 @@ void	hypervisor(t_philo *p, t_p_settings *p_settings)
 	int		i;
 	long	current_timestamp;
 
-	while (!p_settings->philo_died && !p_settings->philo_eat_all)
+	while (!is_simulation_over(p_settings))
 	{
-		i = -1;
-		while (++i < p_settings->num_of_philo
-			&& !p_settings->philo_died && !p_settings->philo_eat_all)
+		i = 0;
+		while (i < p_settings->num_of_philo && !is_simulation_over(p_settings))
 		{
 			current_timestamp = current_time_ms();
 			check_death(&p[i], p->settings, current_timestamp);
 			check_total_meal(&p[i], p->settings, current_timestamp);
+			i++;
 		}
 		usleep(1000);
 	}
@@ -75,16 +77,8 @@ void	smart_sleep(long sleep_time, t_p_settings *p_settings)
 	start_time = current_time_ms();
 	while (current_time_ms() - start_time < sleep_time)
 	{
-		pthread_mutex_lock(&p_settings->philo_died_mutex);
-		pthread_mutex_lock(&p_settings->philo_eat_all_mutex);
-		if (p_settings->philo_died || p_settings->philo_eat_all)
-		{
-			pthread_mutex_unlock(&p_settings->philo_eat_all_mutex);
-			pthread_mutex_unlock(&p_settings->philo_died_mutex);
+		if (is_simulation_over(p_settings))
 			break ;
-		}
-		pthread_mutex_unlock(&p_settings->philo_eat_all_mutex);
-		pthread_mutex_unlock(&p_settings->philo_died_mutex);
 		usleep(1000);
 	}
 }

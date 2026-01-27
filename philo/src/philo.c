@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/21 17:12:21 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/27 15:39:09 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,23 +84,11 @@ void	*routine_philo(void *arg)
 	p = (t_philo *)arg;
 	while (1)
 	{
-		pthread_mutex_lock(&p->settings->philo_died_mutex);
-		if (p->settings->philo_died)
-		{
-			pthread_mutex_unlock(&p->settings->philo_died_mutex);
-			break ;
-		}
-		pthread_mutex_unlock(&p->settings->philo_died_mutex);
-		pthread_mutex_lock(&p->settings->philo_eat_all_mutex);
-		if (p->settings->philo_eat_all)
-		{
-			pthread_mutex_unlock(&p->settings->philo_eat_all_mutex);
-			break ;
-		}
-		pthread_mutex_unlock(&p->settings->philo_eat_all_mutex);
-		thinking(p);
+		if (is_simulation_over(p->settings))
+			break;
 		eating(p);
 		sleeping(p);
+		thinking(p);
 	}
 	return (arg);
 }
@@ -114,6 +102,7 @@ bool	start_all_philo_routine(t_philo *p)
 	{
 		if (pthread_create(&p[i].thread, NULL, routine_philo, &p[i]) != 0)
 		{
+			p->settings->philo_died = true;
 			while (--i >= 0)
 				pthread_join(p[i].thread, NULL);
 			return (false);
