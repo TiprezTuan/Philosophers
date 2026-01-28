@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:04:08 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/27 13:48:38 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/28 13:40:34 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,14 @@ void	destroy_and_exit(int exit_code, int nb_mutex, ...)
 	}
 	va_end(all_mutex);
 	exit(exit_code);
+}
+
+bool	exit_philo_routine(t_philo *p, int nb_philo)
+{
+	pthread_mutex_lock(&p->settings->philo_died_mutex);
+	p->settings->philo_died = true;
+	pthread_mutex_unlock(&p->settings->philo_died_mutex);
+	while (--nb_philo >= 0)
+		pthread_join(p[nb_philo].thread, NULL);
+	return (false);
 }

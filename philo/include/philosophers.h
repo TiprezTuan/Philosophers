@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:18:55 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/27 13:49:10 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/28 13:40:46 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ bool			is_simulation_over(t_p_settings *p_settings);
 void			destroy_i_mutex(t_philo **p, int i_p, t_fork **f, int i_f);
 void			free_all(t_philo *p, t_fork *f, t_p_settings *p_settings);
 void			destroy_and_exit(int exit_code, int nb_mutex, ...);
+bool			exit_philo_routine(t_philo *p, int nb_philo);
 
 /*				  fork.c				*/
 bool			init_forks(t_fork **f, t_p_settings *p_settings);

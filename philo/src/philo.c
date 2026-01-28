@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/27 15:39:09 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/28 16:17:25 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,20 +77,45 @@ bool	init_philo(t_philo **philo, t_fork *f, t_p_settings *p_settings)
 	return (true);
 }
 
+//void *routine_philo(void *arg)
+//{
+//    t_philo *p = (t_philo *)arg;
+
+//    if (p->num_philo % 2 == 0)
+//        smart_sleep(p->settings->time_to_eat / 2, p->settings);
+//    else if (p->settings->num_of_philo > 100 && p->num_philo % 3 == 0)
+//        smart_sleep(p->settings->time_to_eat / 4, p->settings);
+//    while (!is_simulation_over(p->settings))
+//    {
+//        eating(p);
+//        if (is_simulation_over(p->settings))
+//            break;
+//        sleeping(p);
+//        if (is_simulation_over(p->settings))
+//            break;
+//        thinking(p);
+//    }
+//    return (NULL);
+//}
+
 void	*routine_philo(void *arg)
 {
 	t_philo	*p;
 
 	p = (t_philo *)arg;
-	while (1)
+	if (p->num_philo % 2 == 0)
+		smart_sleep(p->settings->time_to_eat / 2, p->settings);
+	while (!is_simulation_over(p->settings))
 	{
-		if (is_simulation_over(p->settings))
-			break;
 		eating(p);
+		if (is_simulation_over(p->settings))
+            break;
 		sleeping(p);
+		if (is_simulation_over(p->settings))
+            break;
 		thinking(p);
 	}
-	return (arg);
+	return (NULL);
 }
 
 bool	start_all_philo_routine(t_philo *p)
@@ -101,12 +126,7 @@ bool	start_all_philo_routine(t_philo *p)
 	while (++i < p->settings->num_of_philo)
 	{
 		if (pthread_create(&p[i].thread, NULL, routine_philo, &p[i]) != 0)
-		{
-			p->settings->philo_died = true;
-			while (--i >= 0)
-				pthread_join(p[i].thread, NULL);
-			return (false);
-		}
-	}
+			return (exit_philo_routine(p, i));
+	}	
 	return (true);
 }
