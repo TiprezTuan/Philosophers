@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 18:37:20 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/27 13:53:09 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/29 14:10:03 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ long	current_time_ms(void)
 	return (current_tv.tv_sec * 1000 + current_tv.tv_usec / 1000);
 }
 
-void	print_status(t_philo *p, long current_timestamp, const char *status)
+void	print_status(t_philo *p, const char *status)
 {
 	pthread_mutex_lock(&p->settings->print_mutex);
 	if (!is_simulation_over(p->settings))
 		printf(
 			"%ld %d %s\n",
-			current_timestamp - p->settings->start_timestamp,
+			current_time_ms() - p->settings->start_timestamp,
 			p->num_philo, status);
 	pthread_mutex_unlock(&p->settings->print_mutex);
 }

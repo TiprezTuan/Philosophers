@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/28 16:17:25 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/29 14:56:22 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ t_p_settings	init_p_settings(int ac, char const **av)
 	p_settings.nb_philo_eaten_all = 0;
 	p_settings.philo_died = 0;
 	p_settings.philo_eat_all = false;
+	p_settings.start_routine = false;
 	init_mutex(&p_settings);
 	if (ac == 6)
 		p_settings.nb_eat_by_philo = ft_atoi(av[5]);
@@ -77,56 +78,77 @@ bool	init_philo(t_philo **philo, t_fork *f, t_p_settings *p_settings)
 	return (true);
 }
 
-//void *routine_philo(void *arg)
-//{
-//    t_philo *p = (t_philo *)arg;
-
-//    if (p->num_philo % 2 == 0)
-//        smart_sleep(p->settings->time_to_eat / 2, p->settings);
-//    else if (p->settings->num_of_philo > 100 && p->num_philo % 3 == 0)
-//        smart_sleep(p->settings->time_to_eat / 4, p->settings);
-//    while (!is_simulation_over(p->settings))
-//    {
-//        eating(p);
-//        if (is_simulation_over(p->settings))
-//            break;
-//        sleeping(p);
-//        if (is_simulation_over(p->settings))
-//            break;
-//        thinking(p);
-//    }
-//    return (NULL);
-//}
-
-void	*routine_philo(void *arg)
+static void	*pair_routine_philo(void *arg)
 {
 	t_philo	*p;
 
 	p = (t_philo *)arg;
+	while (!p->settings->start_routine)
+		;
 	if (p->num_philo % 2 == 0)
 		smart_sleep(p->settings->time_to_eat / 2, p->settings);
 	while (!is_simulation_over(p->settings))
 	{
 		eating(p);
 		if (is_simulation_over(p->settings))
-            break;
+			break ;
 		sleeping(p);
 		if (is_simulation_over(p->settings))
-            break;
+			break ;
 		thinking(p);
 	}
 	return (NULL);
 }
 
+static void	*odd_routine_philo(void *arg)
+{
+	t_philo	*p;
+
+	p = (t_philo *)arg;
+	while (!p->settings->start_routine)
+		;
+	if (p->num_philo == 1)
+		;
+	else if (p->num_philo == 2)
+		smart_sleep(p->settings->time_to_eat * 1.5, p->settings);
+	else if (p->num_philo == 3)
+		smart_sleep(p->settings->time_to_eat * 0.5, p->settings);
+	else if (p->num_philo % 2 == 0)
+		smart_sleep(p->settings->time_to_eat * 2, p->settings);
+	else
+		smart_sleep(p->settings->time_to_eat, p->settings);
+	while (!is_simulation_over(p->settings))
+	{
+		eating(p);
+		sleeping(p);
+		thinking(p);
+	}
+	return (NULL);
+}
+
+#include <stdio.h>
 bool	start_all_philo_routine(t_philo *p)
 {
 	int	i;
 
 	i = -1;
-	while (++i < p->settings->num_of_philo)
+	if (p->settings->num_of_philo % 2 == 0)
 	{
-		if (pthread_create(&p[i].thread, NULL, routine_philo, &p[i]) != 0)
-			return (exit_philo_routine(p, i));
-	}	
+		while (++i < p->settings->num_of_philo)
+		{
+			if (pthread_create(&p[i].thread, NULL, pair_routine_philo, &p[i]) != 0)
+				return (exit_philo_routine(p, i));
+		}
+	}
+	else
+	{
+		while (++i < p->settings->num_of_philo)
+		{
+			if (pthread_create(&p[i].thread, NULL, odd_routine_philo, &p[i]) != 0)
+				return (exit_philo_routine(p, i));
+		}
+	}
+	p->settings->start_routine = true;
+	p->settings->start_timestamp = current_time_ms();
 	return (true);
 }

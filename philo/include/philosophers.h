@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:18:55 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/28 13:40:46 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/29 14:10:14 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 /*				utils.c					*/
 int				ft_atoi(const char *src);
 long			current_time_ms(void);
-void			print_status(t_philo *p, long timestamp, const char *status);
+void			print_status(t_philo *p, const char *status);
 bool			is_simulation_over(t_p_settings *p_settings);
 
 /*			error_management.c			*/

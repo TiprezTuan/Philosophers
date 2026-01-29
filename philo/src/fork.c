@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:02:03 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/28 15:37:48 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/29 14:10:40 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,44 +35,23 @@ bool	init_forks(t_fork **f, t_p_settings *p_settings)
 	return (true);
 }
 
-void take_fork(t_philo *p)
+void	take_fork(t_philo *p)
 {
-    t_fork *first, *second;
-    
-    if (p->left_fork < p->right_fork)
-    {
-        first = p->left_fork;
-        second = p->right_fork;
-    }
-    else
-    {
-        first = p->right_fork;
-        second = p->left_fork;
-    }
-    
-    pthread_mutex_lock(&first->mutex);
-    print_status(p, current_time_ms(), "has taken a fork");
-    pthread_mutex_lock(&second->mutex);
-    print_status(p, current_time_ms(), "has taken a fork");
+	if (p->num_philo % 2 == 0)
+	{
+		pthread_mutex_lock(&p->right_fork->mutex);
+		print_status(p, "has taken a fork");
+		pthread_mutex_lock(&p->left_fork->mutex);
+		print_status(p, "has taken a fork");
+	}
+	else
+	{
+		pthread_mutex_lock(&p->left_fork->mutex);
+		print_status(p, "has taken a fork");
+		pthread_mutex_lock(&p->right_fork->mutex);
+		print_status(p, "has taken a fork");
+	}
 }
-
-//void	take_fork(t_philo *p)
-//{
-//	if (p->num_philo % 2 == 0)
-//	{
-//		pthread_mutex_lock(&p->right_fork->mutex);
-//		print_status(p, current_time_ms(), "has taken a fork");
-//		pthread_mutex_lock(&p->left_fork->mutex);
-//		print_status(p, current_time_ms(), "has taken a fork");
-//	}
-//	else
-//	{
-//		pthread_mutex_lock(&p->left_fork->mutex);
-//		print_status(p, current_time_ms(), "has taken a fork");
-//		pthread_mutex_lock(&p->right_fork->mutex);
-//		print_status(p, current_time_ms(), "has taken a fork");
-//	}
-//}
 
 void	drop_fork(t_philo *p)
 {

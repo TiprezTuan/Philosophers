@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 13:21:25 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/28 16:01:22 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/29 14:59:10 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,15 @@
 
 void	thinking(t_philo *p)
 {
-	long	t_think;
+	//long	t_think;
 
-	print_status(p, current_time_ms(), "is thinking");
-
-	if (p->settings->num_of_philo > 2)
-	{
-		t_think = (p->settings->time_to_eat * 2) - p->settings->time_to_sleep;
-		if (t_think < 0)
-			t_think = 0;
-		if (t_think > 600)
-			t_think = 600;
-		if (t_think > p->settings->time_to_die - (p->settings->time_to_eat + p->settings->time_to_sleep))
-			t_think = 0;
-		smart_sleep(t_think, p->settings);
-	}
+	print_status(p, "is thinking");
+	//if (p->settings->num_of_philo % 2 != 0)
+	//{
+	//	t_think = p->settings->time_to_die
+	//		- (p->settings->time_to_eat + p->settings->time_to_sleep + 5);
+	//	smart_sleep(t_think, p->settings);
+	//}
 }
 
 void	eating(t_philo *p)
@@ -47,7 +41,7 @@ void	eating(t_philo *p)
 	p->nb_eaten++;
 	finished_eating = p->nb_eaten == p->settings->nb_eat_by_philo;
 	pthread_mutex_unlock(&p->meal_mutex);
-	print_status(p, timestamp, "is eating");
+	print_status(p, "is eating");
 	if (finished_eating)
 	{
 		pthread_mutex_lock(&p->settings->nb_philo_eaten_all_mutex);
@@ -60,6 +54,6 @@ void	eating(t_philo *p)
 
 void	sleeping(t_philo *p)
 {
-	print_status(p, current_time_ms(), "is sleeping");
+	print_status(p, "is sleeping");
 	smart_sleep(p->settings->time_to_sleep, p->settings);
 }

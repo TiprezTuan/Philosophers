@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 12:52:34 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/27 13:47:05 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/29 14:25:06 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_p_settings
 	int				nb_philo_eaten_all;
 	int				philo_died;
 	bool			philo_eat_all;
+	bool			start_routine;
 
 	pthread_mutex_t	nb_philo_eaten_all_mutex;
 	pthread_mutex_t	philo_died_mutex;
