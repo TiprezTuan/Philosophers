@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 13:18:55 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/29 14:10:14 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/29 18:25:19 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int				ft_atoi(const char *src);
 long			current_time_ms(void);
 void			print_status(t_philo *p, const char *status);
 bool			is_simulation_over(t_p_settings *p_settings);
+int				ft_strcmp(const char *s1, const char *s2);
 
 /*			error_management.c			*/
 void			destroy_i_mutex(t_philo **p, int i_p, t_fork **f, int i_f);
@@ -32,6 +33,9 @@ bool			exit_philo_routine(t_philo *p, int nb_philo);
 bool			init_forks(t_fork **f, t_p_settings *p_settings);
 void			take_fork(t_philo *p);
 void			drop_fork(t_philo *p);
+
+/*				  mutex.c				*/
+void			init_mutex(t_p_settings *p_settings);
 
 /*				  philo.c				*/
 t_p_settings	init_p_settings(int ac, char const **av);

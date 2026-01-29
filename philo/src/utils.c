@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 18:37:20 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/29 14:10:03 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/29 18:19:12 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ long	current_time_ms(void)
 void	print_status(t_philo *p, const char *status)
 {
 	pthread_mutex_lock(&p->settings->print_mutex);
-	if (!is_simulation_over(p->settings))
+	if (!is_simulation_over(p->settings) || ft_strcmp(status, "died") == 0)
 		printf(
 			"%ld %d %s\n",
 			current_time_ms() - p->settings->start_timestamp,
@@ -76,12 +76,19 @@ void	print_status(t_philo *p, const char *status)
 
 bool	is_simulation_over(t_p_settings *p_settings)
 {
-	bool	over;
-
 	pthread_mutex_lock(&p_settings->philo_died_mutex);
-	pthread_mutex_lock(&p_settings->philo_eat_all_mutex);
-	over = (p_settings->philo_died || p_settings->philo_eat_all);
+	if (p_settings->philo_died)
+	{
+		pthread_mutex_unlock(&p_settings->philo_died_mutex);
+		return (true);
+	}
 	pthread_mutex_unlock(&p_settings->philo_died_mutex);
+	pthread_mutex_lock(&p_settings->philo_eat_all_mutex);
+	if (p_settings->philo_eat_all)
+	{
+		pthread_mutex_unlock(&p_settings->philo_eat_all_mutex);
+		return (true);
+	}
 	pthread_mutex_unlock(&p_settings->philo_eat_all_mutex);
-	return (over);
+	return (false);
 }

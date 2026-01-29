@@ -6,7 +6,7 @@
 #    By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/20 17:58:06 by ttiprez           #+#    #+#              #
-#    Updated: 2026/01/27 13:19:43 by ttiprez          ###   ########.fr        #
+#    Updated: 2026/01/29 17:31:33 by ttiprez          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ MAKEFLAGS += -s
 
 # Compilateur et flags
 CC			= cc
-CFLAGS		= -Wall -Wextra -Werror -g -O0 -I$(HEADERS_DIR)
+CFLAGS		= -Wall -Wextra -Werror -I$(HEADERS_DIR)
 
 # Nom de l'executable
 NAME		= philo
@@ -29,16 +29,20 @@ HEADERS_DIR	= include
 SRCS		= $(SRC_DIR)/error_management.c		\
 			  $(SRC_DIR)/philo_actions.c		 \
 			  $(SRC_DIR)/hypervisor.c			  \
-			  $(SRC_DIR)/philo.c				   \
+			  $(SRC_DIR)/utils2.c				   \
 			  $(SRC_DIR)/utils.c				    \
-			  $(SRC_DIR)/main.c					     \
-			  $(SRC_DIR)/fork.c
+			  $(SRC_DIR)/philo.c				     \
+			  $(SRC_DIR)/mutex.c					  \
+			  $(SRC_DIR)/main.c					       \
+			  $(SRC_DIR)/fork.c	
 
 # Ficher objets
-OBJS		= $(OBJ_DIR)/fork.o					      \
-			  $(OBJ_DIR)/main.o					     \
+OBJS		= $(OBJ_DIR)/fork.o					        \
+			  $(OBJ_DIR)/main.o					       \
+			  $(OBJ_DIR)/mutex.o					  \
+			  $(OBJ_DIR)/philo.o				     \
 			  $(OBJ_DIR)/utils.o				    \
-			  $(OBJ_DIR)/philo.o				   \
+			  $(OBJ_DIR)/utils2.o				   \
 			  $(OBJ_DIR)/hypervisor.o			  \
 			  $(OBJ_DIR)/philo_actions.o		 \
 			  $(OBJ_DIR)/error_management.o
