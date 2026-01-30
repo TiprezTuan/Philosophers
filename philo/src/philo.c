@@ -6,7 +6,7 @@
 /*   By: ttiprez <ttiprez@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/09 12:02:58 by ttiprez           #+#    #+#             */
-/*   Updated: 2026/01/29 18:24:57 by ttiprez          ###   ########.fr       */
+/*   Updated: 2026/01/30 14:20:06 by ttiprez          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,15 @@ bool	init_philo(t_philo **philo, t_fork *f, t_p_settings *p_settings)
 	return (true);
 }
 
-static void	*p_routine_philo(void *arg)
+static void	*routine_three_philo(void *arg)
 {
 	t_philo	*p;
 
 	p = (t_philo *)arg;
-	if (p->num_philo % 2 == 0)
-		smart_sleep(p->settings->time_to_eat / 2, p->settings);
+	if (p->num_philo == 2)
+		smart_sleep(p->settings->time_to_eat, p->settings);
+	else if (p->num_philo == 3)
+		smart_sleep(p->settings->time_to_eat * 1.5, p->settings);
 	while (!is_simulation_over(p->settings))
 	{
 		eating(p);
@@ -80,21 +82,24 @@ static void	*p_routine_philo(void *arg)
 	return (NULL);
 }
 
-static void	*o_routine_philo(void *arg)
+static void	*routine_philo(void *arg)
 {
 	t_philo	*p;
 
 	p = (t_philo *)arg;
-	if (p->num_philo == 1)
-		;
-	else if (p->num_philo == 2)
-		smart_sleep(p->settings->time_to_eat * 1.5, p->settings);
-	else if (p->num_philo == 3)
-		smart_sleep(p->settings->time_to_eat * 0.5, p->settings);
+	if (p->settings->num_of_philo % 2 != 0)
+	{
+		if (p->num_philo == 2)
+			smart_sleep(p->settings->time_to_eat * 1.5, p->settings);
+		else if (p->num_philo == 3)
+			smart_sleep(p->settings->time_to_eat * 0.5, p->settings);
+		else if (p->num_philo % 2 == 0)
+			smart_sleep(p->settings->time_to_eat * 2, p->settings);
+		else if (p->num_philo != 1)
+			smart_sleep(p->settings->time_to_eat, p->settings);
+	}
 	else if (p->num_philo % 2 == 0)
-		smart_sleep(p->settings->time_to_eat * 2, p->settings);
-	else
-		smart_sleep(p->settings->time_to_eat, p->settings);
+		smart_sleep(p->settings->time_to_eat / 2, p->settings);
 	while (!is_simulation_over(p->settings))
 	{
 		eating(p);
@@ -109,16 +114,17 @@ bool	start_all_philo_routine(t_philo *p)
 	int		i;
 
 	i = -1;
-	if (p->settings->num_of_philo % 2 == 0)
+	if (p->settings->num_of_philo != 3)
 	{
 		while (++i < p->settings->num_of_philo)
-			if (pthread_create(&p[i].thread, NULL, p_routine_philo, &p[i]) != 0)
+			if (pthread_create(&p[i].thread, NULL, routine_philo, &p[i]) != 0)
 				return (exit_philo_routine(p, i));
 	}
 	else
 	{
 		while (++i < p->settings->num_of_philo)
-			if (pthread_create(&p[i].thread, NULL, o_routine_philo, &p[i]) != 0)
+			if (pthread_create(&p[i].thread, NULL,
+					routine_three_philo, &p[i]) != 0)
 				return (exit_philo_routine(p, i));
 	}
 	return (true);
